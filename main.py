@@ -2,11 +2,11 @@ from flask import Flask, render_template, request, flash
 import funktionen
 import plotly
 import plotly.graph_objects as go
-from datetime import datetime, timedelta
-
 
 app = Flask("TimeTool")
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/' # Wird für flash benötigt
+
+# Wird für Flash benötigt
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 kategorien_farben = {
     "Isolation": "#F5F6CE",
@@ -19,15 +19,21 @@ kategorien_farben = {
 
 @app.route('/', methods=['GET', 'POST'])
 def speichern():
-    if request.method == 'POST':  # Wenn User etwas im Formular (siehe index.html) eingibt
-        datum = request.form['datum']  # Eingaben werden zu Variablen
+    # Wenn User etwas im Formular (siehe index.html) eingibt
+    if request.method == 'POST':
+        # Eingaben werden zu Variablen
+        datum = request.form['datum']
         kategorie = request.form['kategorie']
         startzeit = request.form['startzeit']
         endzeit = request.form['endzeit']
         pause = request.form['pause']
-        erfolgreich = funktionen.neue_eingabe_speichern(datum, kategorie, startzeit, endzeit, pause)  # Funktion gibt erfolgreich zurück
-        if erfolgreich:   # erfolgreich ist True oder False
+        # Funktion gibt erfolgreich zurück
+        erfolgreich = funktionen.neue_eingabe_speichern(datum, kategorie, startzeit, endzeit, pause)
+        # Erfolgreich ist True oder False
+        # Wenn erfolgreich wird eine Bestätigung ausgegeben
+        if erfolgreich:
             flash('Ihre Eingabe wurde gespeichert.')
+        # Wenn nicht erfolgreich wird eine entsprechende Meldung ausgegeben
         else:
             flash('Ihre Eingabe konnte nicht gespeichert werden, da die Zeitsumme kleiner als 0 ist.')
     return render_template('index.html', kategorien=kategorien_farben.keys())
@@ -38,16 +44,11 @@ def speichern():
 def uebersicht():
     zeiterfassung = funktionen.erfasste_zeit_laden()
 
-    if request.method == 'POST':  # Wenn der User eine spezifische Kategorie im Filter gewählt hat
+    # Wenn der User eine spezifische Kategorie im Filter gewählt hat
+    if request.method == 'POST':
         gefilterte_kategorie = request.form['gefilterte_kategorie']
         gefilterte_zeit = funktionen.zeiterfassung_filtern(gefilterte_kategorie)
-        summe = timedelta(0)
-        for key, value in gefilterte_zeit.items():
-            einzelne_zeit = value[1]  # Value[1] = zugehörige Zeit
-            einzelne_zeit_obj = datetime.strptime(einzelne_zeit, '%H:%M:%S')  # Umwandlung des Strings nach datetime
-            einzelne_zeit = timedelta(hours=einzelne_zeit_obj.hour, minutes=einzelne_zeit_obj.minute,
-                                      seconds=einzelne_zeit_obj.second)  # Umwandlung von datetime nach timedelta (damit Zeiten zusammengerechnet werden können)
-            summe += einzelne_zeit  # Die einzelne_zeit wird aktualisiert
+        summe = funktionen.summe_berechnen(gefilterte_zeit)
         return render_template('uebersicht.html',
                            zeiterfassung=gefilterte_zeit,
                            farben=kategorien_farben,
@@ -55,14 +56,9 @@ def uebersicht():
                            gefilterte_kategorie=gefilterte_kategorie,
                            summe=summe)
 
-    else:  # Wenn nichts gefiltert wurde
-        summe = timedelta(0)
-        for key, value in zeiterfassung.items():
-            einzelne_zeit = value[1]  # Value[1] = zugehörige Zeit
-            einzelne_zeit_obj = datetime.strptime(einzelne_zeit, '%H:%M:%S')  # Umwandlung des Strings nach datetime
-            einzelne_zeit = timedelta(hours=einzelne_zeit_obj.hour, minutes=einzelne_zeit_obj.minute,
-                                      seconds=einzelne_zeit_obj.second)  # Umwandlung von datetime nach timedelta (damit Zeiten zusammengerechnet werden können)
-            summe += einzelne_zeit  # Die einzelne_zeit wird aktualisiert
+    # Wenn nichts gefiltert wurde
+    else:
+        summe = funktionen.summe_berechnen(zeiterfassung)
         return render_template('uebersicht.html',
                            zeiterfassung=zeiterfassung,
                            farben=kategorien_farben,
@@ -70,44 +66,61 @@ def uebersicht():
                            summe=summe)
 
 
-@app.route('/loeschen')
-@app.route('/loeschen/<key>')
-def loeschen(key=False):  # Default, wenn Key nicht vorhanden
+@app.route('/loeschen', methods=['GET', 'POST'])
+@app.route('/loeschen/<key>', methods=['GET', 'POST'])
+# Default, wenn Key nicht vorhanden
+def loeschen(key=False):
     if key:
-        zeiterfassung = funktionen.erfasste_zeit_laden()  # Die .json Einträge werden als Dict geladen
-        del zeiterfassung[key]  # Der entsprechende Eintrag wird aus dem Dict gelöscht
-        funktionen.zeiterfassung_abspeichern(zeiterfassung)  # Der Dict wird in .json abgespeichert
+        # Die .json Einträge werden als Dict geladen
+        zeiterfassung = funktionen.erfasste_zeit_laden()
+        # Der entsprechende Eintrag wird aus dem Dict gelöscht
+        del zeiterfassung[key]
+        # Der Dict wird in .json abgespeichert
+        funktionen.zeiterfassung_abspeichern(zeiterfassung)
+        summe = funktionen.summe_berechnen(zeiterfassung)
         return render_template('uebersicht.html',
                                zeiterfassung=zeiterfassung,
                                farben=kategorien_farben,
-                               kategorien=kategorien_farben.keys())
+                               kategorien=kategorien_farben.keys(),
+                               summe=summe)
     else:
         return render_template('uebersicht.html')
 
 
 @app.route('/aendern', methods=['GET', 'POST'])
 @app.route('/aendern/<key>', methods=['GET', 'POST'])
-def aendern(key=False):  # Default, wenn Key nicht vorhanden
+# Default, wenn Key nicht vorhanden
+def aendern(key=False):
     if key:
-        if request.method == 'POST':  # Wenn User etwas in Formular (siehe aenderbare_uebersicht.html) eingibt
+        # Wenn User etwas in Formular (siehe aenderbare_uebersicht.html) eingibt
+        if request.method == 'POST':
             zeiterfassung = funktionen.erfasste_zeit_laden()
-            neue_kategorie = request.form['neue_kategorie']  # Eingaben werden zu Variablen
+            # Eingaben werden zu Variablen
+            neue_kategorie = request.form['neue_kategorie']
             neue_zeit = request.form['neue_zeit']
-            zeiterfassung[key] = str(neue_kategorie), str(neue_zeit)  # Der Eintrag im Dictionary wird aktualisiert
+            # Der Eintrag im Dictionary wird aktualisiert und abgespeichert
+            zeiterfassung[key] = str(neue_kategorie), str(neue_zeit)
             funktionen.zeiterfassung_abspeichern(zeiterfassung)
+            summe = funktionen.summe_berechnen(zeiterfassung)
             return render_template('uebersicht.html',
                                    zeiterfassung=zeiterfassung,
                                    farben=kategorien_farben,
-                                   kategorien=kategorien_farben.keys())
-        else:  # Wenn Formular noch nicht ausgefüllt wurde, also request.method nicht gleich POST
+                                   kategorien=kategorien_farben.keys(),
+                                   summe=summe)
+
+        # Wenn Formular noch nicht ausgefüllt wurde, also request.method nicht gleich POST
+        else:
             zeiterfassung = funktionen.erfasste_zeit_laden()
-            aenderbare_kategorie = zeiterfassung[key]  # Die Werte zum angewählten Schlüssel werden zur Variablen anderbare_kategorie
+            # Die Werte zum angewählten Schlüssel werden zur Variablen anderbare_kategorie
+            aenderbare_kategorie = zeiterfassung[key]
+            summe = funktionen.summe_berechnen(zeiterfassung)
             return render_template('aenderbare_uebersicht.html',
                                    zeiterfassung=zeiterfassung,
-                                   aenderbare_kategorie=aenderbare_kategorie,  # Diese Variable wird an das .html Format weitergegeben
+                                   aenderbare_kategorie=aenderbare_kategorie,
                                    farben=kategorien_farben,
                                    key = key,
-                                   kategorien=kategorien_farben.keys())
+                                   kategorien=kategorien_farben.keys(),
+                                   summe=summe)
     else:
         return render_template('uebersicht.html')
 

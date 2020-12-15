@@ -2,23 +2,25 @@
 
 {% block title %}
 <title>Übersicht</title>
-
 {% endblock %}
 
 {% block body %}
 
 <h2>Übersicht erfasste Zeit</h2>
 
-{% if zeiterfassung %} <!-- Falls Zeiten bereits erfasst wurden -->
+<!-- Falls Zeiten bereits erfasst wurden -->
+{% if zeiterfassung %}
 
 <table>
     <tr>
-        <th style="width:250px;"><form method="POST"> <!-- Filter -->
+        <!-- Filter: Wenn ein Filter gesetzt ist, wird die URL /uebersicht ausgegeben -->
+        <th style="width:250px;"><form method="POST" action="{{ url_for('uebersicht') }}">
             <select name="gefilterte_kategorie">
                 <option selected>{{ gefilterte_kategorie }}</option>
                 <option>Alle</option>
                 {% for kategorie in kategorien %}
-                <option value="{{ kategorie }}">{{ kategorie }}</option>  <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                <option value="{{ kategorie }}">{{ kategorie }}</option>
                 {% endfor %}
             </select>
             <button type="submit">Filtern</button></form></th>
@@ -37,35 +39,46 @@
         </tr>
     </thead>
 
-{% for key, value in zeiterfassung.items() %}  <!-- For-Schleife iteriert durch den Dict -->
+<!-- For-Schleife iteriert durch den Dict -->
+{% for key, value in zeiterfassung.items() %}
     <tbody>
-        <tr style="background-color:{{ farben[value[0]] }}">  <!-- Jede Kategorie hat eigene Hintergrundfarbe -->
-            <td>{{ key }}</td>  <!-- Key = Datum, Erfassungszeit -->
-            <td>{{ value[0] }}</td>  <!-- Value[0] = Kategorie -->
-            <td>{{ value[1] }}</td>  <!-- Value[1] = Zeit -->
-            <td><a href="/aendern/{{ key }}">Ändern</a> <a href="/loeschen/{{ key }}">Löschen</a></td>  <!-- Key kommt aus main.py -->
+        <!-- Jede Kategorie hat eigene Hintergrundfarbe -->
+        <tr style="background-color:{{ farben[value[0]] }}">
+            <!-- Key = Datum + Erfassungszeit -->
+            <td>{{ key }}</td>
+            <!-- Value[0] = Kategorie -->
+            <td>{{ value[0] }}</td>
+            <!-- Value[1] = Zeit -->
+            <td>{{ value[1] }}</td>
+            <!-- Key kommt aus main.py -->
+            <td><a href="/aendern/{{ key }}">Ändern</a> <a href="/loeschen/{{ key }}">Löschen</a></td>
         </tr>
     </tbody>
 {% endfor %}
 </table>
 
+
+<!-- Falls noch keine Zeiten erfasst wurden -->
 {% else %}
-	<!-- Falls noch keine Zeiten erfasst wurden -->         <!-- ACHTUNG TABELLE DOPPELT -->
+	         <!-- ACHTUNG TABELLE DOPPELT -->
 <table>
     <tr>
-        <th style="width:250px;"><form method="POST"> <!-- Filter -->
+        <!-- Filter: Wenn ein Filter gesetzt ist, wird die URL /uebersicht ausgegeben -->
+        <th style="width:250px;"><form method="POST" action="{{ url_for('uebersicht') }}">
             <select name="gefilterte_kategorie">
                 <option selected>{{ gefilterte_kategorie }}</option>
+                <option>Alle</option>
                 {% for kategorie in kategorien %}
-                <option value="{{ kategorie }}">{{ kategorie }}</option>  <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                <option value="{{ kategorie }}">{{ kategorie }}</option>
                 {% endfor %}
             </select>
             <button type="submit">Filtern</button></form></th>
-        <th>Total: {{ summe }}</th>
+         <th>Total: {{ summe }}</th>
     </tr>
 </table>
 <br>
-    <p>Es wurden noch keine Zeiten erfasst. Erfassen Sie Ihre Zeit <a href="/">hier</a>.</p>
+<p>Es wurden noch keine Zeiten (in dieser Kategorie) erfasst. Erfassen Sie Ihre Zeit <a href="/">hier</a>.</p>
 
 {% endif %}
 

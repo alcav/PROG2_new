@@ -8,7 +8,9 @@
 
 <h2>Erfasste Zeit ändern</h2>
 
-{% if zeiterfassung %} <!-- Falls Zeiten bereits erfasst wurden -->
+<!-- Falls Zeiten bereits erfasst wurden -->
+{% if zeiterfassung %}
+
 <table class="table">
     <thead>
         <tr>
@@ -19,16 +21,20 @@
         </tr>
     </thead>
     <tbody>
-        <tr style="background-color:{{ farben[aenderbare_kategorie[0]] }}">  <!-- Die Hintergrundfarbe ist diejenige der gewählten Kategorie -->
+        <!-- Die Hintergrundfarbe ist diejenige der gewählten Kategorie -->
+        <tr style="background-color:{{ farben[aenderbare_kategorie[0]] }}">
             <td>{{ key }}</td>
             <td><form method="POST">
                 <select name="neue_kategorie">
-                    <option selected>{{ aenderbare_kategorie[0] }}</option>  <!-- Die gewählte Kategorie ist als Option vorgewählt -->
+                    <!-- Die gewählte Kategorie ist als Option vorgewählt -->
+                    <option selected>{{ aenderbare_kategorie[0] }}</option>
                     {% for kategorie in kategorien %}
-                    <option value="{{ kategorie }}">{{ kategorie }}</option>  <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                    <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                    <option value="{{ kategorie }}">{{ kategorie }}</option>
                     {% endfor %}
                 </select></td>
-            <td><input type="text" name="neue_zeit" placeholder="{{ aenderbare_kategorie[1] }}" required></td>  <!-- Die bereits erfasste Zeit ist als Option gewählt -->
+            <!-- Die bereits erfasste Zeit ist als Option gewählt -->
+            <td><input type="text" name="neue_zeit" placeholder="{{ aenderbare_kategorie[1] }}" required></td>
             <td><button type="submit">Speichern</button></td></form>
         </tr>
     </tbody>
