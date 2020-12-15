@@ -1,0 +1,43 @@
+{% extends "basic.html" %}
+
+{% block title %}
+<title>Ändern</title>
+{% endblock %}
+
+{% block body %}
+
+<h2>Erfasste Zeit ändern</h2>
+
+{% if zeiterfassung %} <!-- Falls Zeiten bereits erfasst wurden -->
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Datum, Erfassungszeit</th>
+            <th scope="col">Kategorie</th>
+            <th scope="col">Zeit</th>
+            <th scope="col">Anpassen</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr style="background-color:{{ farben[aenderbare_kategorie[0]] }}">  <!-- Die Hintergrundfarbe ist diejenige der gewählten Kategorie -->
+            <td>{{ key }}</td>
+            <td><form method="POST">
+                <select name="neue_kategorie">
+                    <option selected>{{ aenderbare_kategorie[0] }}</option>  <!-- Die gewählte Kategorie ist als Option vorgewählt -->
+                    {% for kategorie in kategorien %}
+                    <option value="{{ kategorie }}">{{ kategorie }}</option>  <!-- Alle Kategorien werden als Optionen im Dropdown aufgeführt -->
+                    {% endfor %}
+                </select></td>
+            <td><input type="text" name="neue_zeit" placeholder="{{ aenderbare_kategorie[1] }}" required></td>  <!-- Die bereits erfasste Zeit ist als Option gewählt -->
+            <td><button type="submit">Speichern</button></td></form>
+        </tr>
+    </tbody>
+</table>
+
+{% else %}
+	<!-- Falls noch keine Zeiten erfasst wurden -->
+    <p>Es wurden noch keine Zeiten erfasst. Erfassen Sie Ihre Zeit <a href="/">hier</a>.</p>
+
+{% endif %}
+
+{% endblock %}
