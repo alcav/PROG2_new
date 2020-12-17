@@ -22,12 +22,12 @@ Im Register Zeiterfassung können die geleisteten Arbeitsstunden erfasst werden.
 - Durch das Klicken auf den Button Grafik soll der User auf die Seite Grafik weitergeleitet werden.
 
 ### Seite Übersicht
-- Die Übersicht soll alle bereits erfassten Daten darstellen. Für jede Zeiterfassung wird das Datum inkl. Erfassungzeit, die Kategorie und die Arbeitszeit angezeigt. Die Arbeitszeit soll die totale Arbeitszeit pro Zeiterfassung sein, d.h. Endzeit abzgl. Anfangszeit abzgl. Pause. Die Arbeitszeit soll in Stunden und Minuten dargestellt werden.
+- Die Übersicht soll alle bereits erfassten Daten darstellen. Für jede Zeiterfassung wird das Datum inkl. Erfassungzeit, die Kategorie und die Arbeitszeit angezeigt. Die Arbeitszeit soll die totale Arbeitszeit pro Zeiterfassung sein, d.h. Endzeit abzgl. Anfangszeit abzgl. Pause. Die Arbeitszeit soll in Stunden, Minuten und Sekunden dargestellt werden.
 - Der User soll die Möglichkeit haben, die erfassten Daten nach Kategorien zu filtern. Wenn er mit der Filterfunktion eine Kategorie auswählt, soll nur die erfasste Arbeitszeit in dieser Kategorie angezeigt werden.
 - Über der Übersichtstabelle soll die Gesamtzeit angezeigt werden. Wenn der User einen Filter anwendet, soll nur die Gesamtzeit der erfassten Zeiten in der gefilterten Kategorie angezeigt werden.
 - Falls noch keine Zeiten erfasst wurden, soll eine entsprechende Meldung erscheinen mit der Aufforderung, die Zeit auf der Seite Zeiterfassung einzugeben.
 - Falls nach einer Kategorie gefiltert wird, in der noch keine Zeiten erfasst wurden, soll diesselbe Meldung erscheinen.
-- Es soll es dem User möglich sein, durch das Klicken auf den Button Löschen bereits erfasste Daten zu löschen und durch das Klicken auf den Button Ändern bereits erfasste Daten zu ändern. Sowohl die Kategorie als auch die Gesamtzeit können geändert werden.
+- Es soll es dem User möglich sein, durch das Klicken auf den Button Löschen bereits erfasste Daten zu löschen und durch das Klicken auf den Button Ändern bereits erfasste Daten zu ändern. Sowohl die Kategorie als auch die Arbeitszeit sollen geändert werden können.
 - Durch das Klicken auf den Button TimeTool soll der User auf die Seite Zeiterfassung weitergeleitet werden.
 - Durch das Klicken auf den Button Zeiterfassung soll der User auf die Seite Zeiterfassung weitergeleitet werden.
 - Durch das Klicken auf den Button Übersicht soll der User auf die Seite Übersicht verbleiben. 
