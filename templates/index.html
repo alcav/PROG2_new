@@ -16,9 +16,10 @@
 		<label>Pause in Min.</label><input type="number" min="0" step="1" name="pause" placeholder="20" required><br>
 		<br>
 
-		<!-- Alle Kategorien werden aufgeführt. Die Kategorien werden aus Dict kategorien_farben im main.py genommen. -->
+		<!-- Alle Kategorien werden aufgeführt. Die Kategorien werden aus Dict kategorien_farben im main.py genommen -->
 		{% for kategorie in kategorien %}
 		<div class="custom-control custom-radio">
+		  <!-- Weil immer eine Kategorie gewählt sein muss, ist Sonstiges bereits vorgewählt -->
 		  <input type="radio" class="custom-control-input" id="{{ kategorie }}" name="kategorie" value="{{ kategorie }}" checked>
 		  <label class="custom-control-label" for="{{ kategorie }}">{{ kategorie }}</label>
 		</div>
@@ -27,7 +28,7 @@
 		<br>
 		<button type="submit">Hinzufügen</button>
 
-		<!-- Mit Flash wird eine Nachricht ausgegeben -->
+		<!-- Mit Flash wird eine Nachricht ausgegeben. Diese wird im main.py definiert -->
 		{% with messages = get_flashed_messages() %}
 		  {% if messages %}
 			<ul class=flashes>
