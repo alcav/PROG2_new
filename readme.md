@@ -42,4 +42,4 @@ Im Register Zeiterfassung können die geleisteten Arbeitsstunden erfasst werden.
 
 
 ## Ablaufdiagramm
-![alt text](https://github.com/alcav/PROG2_new/blob/main/Ablaufdiagramm.jpg)
+![alt text](https://github.com/alcav/PROG2_new/blob/main/static/Ablaufdiagramm.jpg)
