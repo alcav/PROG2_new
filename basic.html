@@ -1,0 +1,42 @@
+<!-- Dies ist das Skelett der .html Dateien -->
+
+<!DOCTYPE html>
+<html lang="de">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+		{% block title %}{% endblock %}
+	</head>
+
+	<!-- Navigation -->
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="/"><img src="../static/logo.png" height="80" width="80" alt="Logo"> TimeTool</a>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item">
+				<a class="nav-link" href="/">Zeiterfassung <span class="sr-only">(current)</span></a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/uebersicht">Übersicht</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="/grafik">Grafik</a>
+			  </li>
+			</ul>
+		  </div>
+		</nav>
+		{% block body %}{% endblock %}
+	</body>
+
+	<footer>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	</footer>
+</html>
+
+<!-- Quelle Template Inheritance: https://www.youtube.com/watch?v=sAxuqMB7eUY -->
+<!-- Quelle Navbar: https://getbootstrap.com/docs/4.1/components/navbar/ -->
