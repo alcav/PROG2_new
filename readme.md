@@ -29,7 +29,7 @@ Im Register Zeiterfassung können die geleisteten Arbeitsstunden erfasst werden.
 - Über der Übersichtstabelle soll die Gesamtzeit angezeigt werden. Wenn der User einen Filter anwendet, soll nur die Gesamtzeit der erfassten Zeiten in der gefilterten Kategorie angezeigt werden.
 - Falls noch keine Zeiten erfasst wurden, soll eine entsprechende Meldung erscheinen mit der Aufforderung, die Zeit auf der Seite Zeiterfassung einzugeben.
 - Falls nach einer Kategorie gefiltert wird, in der noch keine Zeiten erfasst wurden, soll diesselbe Meldung erscheinen.
-- Es soll es dem User möglich sein, durch das Klicken auf den Button Löschen bereits erfasste Daten zu löschen und durch das Klicken auf den Button Ändern bereits erfasste Daten zu ändern. Sowohl die Kategorie als auch die Arbeitszeit sollen geändert werden können.
+- Es soll dem User möglich sein, durch das Klicken auf den Button Löschen bereits erfasste Daten zu löschen und durch das Klicken auf den Button Ändern bereits erfasste Daten zu ändern. Sowohl die Kategorie als auch die Arbeitszeit sollen geändert werden können.
 
 ### Seite Grafik
 - In einem Kuchendiagramm kann eingesehen werden, wie viel % an welcher Kategorie gearbeitet wurde. Alle sechs Kategorien Isolation, Wandtäferung, Fenster, Möbelbau, Küche und Sonstiges sollen im Diagramm enthalten sein, sofern Zeiten in den jeweiligen Kategorien erfasst wurden.
