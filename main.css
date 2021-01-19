@@ -1,0 +1,11 @@
+h2 {margin: 50px 50px 25px 25px;}
+div, table, p {margin-left: 25px; margin-right: 25px;}
+table {width: 90%;}
+
+/* Darstellung der Flash-Mitteilungen (ul = unorderet list) */
+ul.flashes {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
