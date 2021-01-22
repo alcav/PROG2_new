@@ -57,6 +57,7 @@
             <!-- Value[1] = Zeit -->
             <td>{{ value[1] }}</td>
             <!-- Key = Datum + Erfassungszeit -->
+            <!-- Bei Klick auf Ändern oder Löschen wird der entsprechende Key in der URL aufgenommen und im main.py weiterbearbeitet -->
             <td><a href="/aendern/{{ key }}">Ändern</a> <a href="/loeschen/{{ key }}">Löschen</a></td>
         </tr>
     </tbody>
