@@ -43,7 +43,7 @@ def neue_eingabe_speichern(datum, kategorie, startzeit, endzeit, pause):
     current_time = now.strftime("%H:%M:%S")
     # Durch die Erweiterung des Datums mit der aktuellen Zeit wird sichergestellt, dass der spätere Key einzigartig ist
     datum = datum + ", " + current_time
-    # Strptime wandelt den string in einen datetime object um
+    # Strptime wandelt den String in ein datetime object um
     startzeit_obj = datetime.strptime(startzeit, '%H:%M')
     endzeit_obj = datetime.strptime(endzeit, '%H:%M')
     # Die Pause wird in Minuten umgewandelt
@@ -54,9 +54,9 @@ def neue_eingabe_speichern(datum, kategorie, startzeit, endzeit, pause):
     if gesamtzeit < timedelta(0):
         return False
     else:
-        # Ein neuer Eintrag wird im Dict abgespeichert. Die Gesamtzeit wird in einen string umgewandelt.
+        # Ein neuer Eintrag wird im Dict abgespeichert. Die Gesamtzeit wird in einen String umgewandelt.
         zeiterfassung[datum] = kategorie, str(gesamtzeit)
-        # Der Dict wird im json abgespeichert (siehe Funktion oben)
+        # Der Dict wird im Json abgespeichert (siehe Funktion oben)
         zeiterfassung_abspeichern(zeiterfassung)
         # Eine Bestätigung wird ausgegeben (siehe main.py -> speichern)
         return True

@@ -125,7 +125,7 @@ def aendern(key=False):
         else:
             # Die .json Einträge werden als Dict geladen
             zeiterfassung = funktionen.erfasste_zeit_laden()
-            # Die Values (Kategorie + Zeit) zum angewählten Key (Datum + Erfassungszeit) werden zur Variablen anderbare_kategorie
+            # Die Values (Kategorie + Zeit) zum angewählten Key (Datum + Erfassungszeit) werden zur Variablen aenderbare_kategorie
             aenderbare_kategorie = zeiterfassung[key]
             # Die änderbare Übersicht wird ausgegeben
             return render_template('aenderbare_uebersicht.html',
